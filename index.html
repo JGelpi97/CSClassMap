@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="style.css" rel="stylesheet" />
+<meta charset=utf-8 />
+<title>Pitt CS Classes</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+
+<script src="https://cytoscape.github.io/cytoscape.js/api/cytoscape.js-latest/cytoscape.min.js"></script>
+<script src="code.js"></script>
+
+
+<script type="text/javascript">
+	function navigateToNode(nodeName)
+	{		
+		var cy = $('#cy').cytoscape('get');
+		var node = cy.$(nodeName);
+		cy.animate({
+			center: {
+				eles: node
+			}
+		}, 
+		{
+		  duration: 300
+		});	
+
+		$('.modal').modal('hide');				//Hide open modal
+		document.getElementById(nodeName.substring(1)).click();	//Open the modal for the thing we just went to
+	}
+</script>
+</head>
+<body>
+
+<div id="cy"></div>  
+
+<a href="#" class="modalButtons"
+	data-toggle="modal"
+	data-target="#cs401Modal"
+	id="CS401">
+</a>
+
+<div class="modal fade" id="cs401Modal" tabindex="-1" role="dialog" aria-labelledby="cs401Modal" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4>CS401 - Intermediate Programming Using Java</h4>
+			</div>
+			<div class="modal-body">
+				Description:<br/>
+				This is an intermediate course focusing on object-oriented programming and other fundamental programming concepts utilizing the Java programming language. Students are expected to have some previous programming experience prior to taking this course.
+				<hr/>
+				<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=0401" target="_blank">More Information</a>
+				<br/>            
+				Prerequisites: None
+			</div>
+			<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+			</div>
+		</div>
+	</div>
+</div>
+
+<a href="#" class="modalButtons"
+	data-toggle="modal"
+	data-target="#cs441Modal"
+	id="CS441">
+</a>
+
+<div class="modal fade" id="cs441Modal" tabindex="-1" role="dialog" aria-labelledby="cs441Modal" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4>CS441 - Discrete Structures for Computer Science</h4>
+			</div>
+			<div class="modal-body">
+				Description:<br/>
+				The purpose of this course is to understand and use (abstract) discrete structures that are backbones of computer science. In particular, this class is meant to introduce logic, proofs, sets, relations, functions, counting, and probability, with an emphasis on applications in computer science.
+				<hr/>
+				<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=0441" target="_blank">More Information</a>
+				<br/>            
+				Prerequisites: 
+				<ul>
+					<li>Math 0220 - Analytic Geometry and Calculus 1</li>
+				</ul>
+			</div>
+			<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+			</div>
+		</div>
+	</div>
+</div>
+
+<a href="#" class="modalButtons"
+	data-toggle="modal"
+	data-target="#cs445Modal"
+	id="CS445">
+</a>
+
+<div class="modal fade" id="cs445Modal" tabindex="-1" role="dialog" aria-labelledby="cs445Modal" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4>CS445 - Data Structures</h4>
+			</div>
+			<div class="modal-body">
+				Description:<br/>
+				This course emphasizes the study of the basic data structures of computer science (stacks, queues, trees, lists, graphs) and their implementations using the Java language. Included in this study are programming techniques which use recursion and reference variables. Students in this course are also introduced to various searching and sorting methods and are also expected to develop an intuitive understanding of the complexity of these algorithms.
+				<hr/>
+				<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=0445" target="_blank">More Information</a>
+				<br/>            
+				Prerequisites: 
+				<ul>
+					<li><a href="#" onclick="navigateToNode('#CS401');">CS401 - Intermediate Programming Using Java</a></li>
+
+				</ul>
+			</div>
+			<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+			</div>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>

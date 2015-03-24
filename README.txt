@@ -1,0 +1,1 @@
+This site shows pre-requisites for Pitt CS classes, and other stuff
