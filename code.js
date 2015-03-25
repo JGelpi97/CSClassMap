@@ -31,7 +31,7 @@ $(function(){ // on dom ready
 	.css({      
 	  'line-style': 'solid',
 	  'line-color': 'black',
-	  'width': 1
+	  'width': 3
 	})
 	.selector('.mouseOverNode')            //Node look for mouse overing
 	.css({      
@@ -47,7 +47,7 @@ $(function(){ // on dom ready
 	motionBlur: false,
 	wheelSensitivity: .5,
 
-		elements: [
+	elements: [
 	{ // node
 	  group: 'nodes', // 'nodes' for a node, 'edges' for an edge
 
@@ -271,7 +271,7 @@ $(function(){ // on dom ready
 	  },
 
 	  position: {
-		x: 1300,
+		x: 1350,
 		y: 400
 	  },
 
@@ -448,7 +448,7 @@ $(function(){ // on dom ready
 	  },
 
 	  position: {
-		x: 250,
+		x: 50,
 		y: 350
 	  },
 
@@ -497,11 +497,124 @@ $(function(){ // on dom ready
 
 	  position: {
 		x: 1100,
-		y: 700
+		y: 395
 	  },
 
 	  grabbable: false,
 	},
+
+    { // node
+      group: 'nodes',
+
+      data: {
+        id: 'CS1652',
+        name: 'CS1652'
+      },
+
+      position: {
+        x: 1650,
+        y: 400
+      },
+
+      grabbable: false,
+    },
+
+    { // node
+      group: 'nodes',
+
+      data: {
+        id: 'CS1653',
+        name: 'CS1653'
+      },
+
+      position: {
+        x: 1300,
+        y: 600
+      },
+
+      grabbable: false,
+    },
+
+    { // node
+      group: 'nodes',
+
+      data: {
+        id: 'CS1655',
+        name: 'CS1655'
+      },
+
+      position: {
+        x: 250,
+        y: 350
+      },
+
+      grabbable: false,
+    }, 
+
+    { // node
+      group: 'nodes',
+
+      data: {
+        id: 'CS1666',
+        name: 'CS1666'
+      },
+
+      position: {
+        x: 675,
+        y: 700
+      },
+
+      grabbable: false,
+    },  
+
+    { // node
+      group: 'nodes',
+
+      data: {
+        id: 'CS1671',
+        name: 'CS1671'
+      },
+
+      position: {
+        x: 1100,
+        y: 800
+      },
+
+      grabbable: false,
+    }, 
+
+    { // node
+      group: 'nodes',
+
+      data: {
+        id: 'CS1675',
+        name: 'CS1675'
+      },
+
+      position: {
+        x: 550,
+        y: 600
+      },
+
+      grabbable: false,
+    },     
+
+    { // node
+      group: 'nodes',
+
+      
+      data: {
+        id: 'CS1699',
+        name: 'CS1699'
+      },
+
+      position: {
+        x: -125,
+        y: 350
+      },
+
+      grabbable: false,  
+    },            
 
 	//EDGES--------------------------------------------
 
@@ -867,12 +980,96 @@ $(function(){ // on dom ready
 	  },
 	},   
 
+    { // edge
+      group: 'edges',
+      data: {
+        id: 'e41',
+        source: 'CS449',
+        target: 'CS1652'
+      },
+    }, 
+
+    { // edge
+      group: 'edges',
+      data: {
+        id: 'e42',
+        source: 'CS449',
+        target: 'CS1653'
+      },
+    },
+
+    { // edge
+      group: 'edges',
+      data: {
+        id: 'e43',
+        source: 'CS1501',
+        target: 'CS1653'
+      },
+    },      
+
+    { // edge
+      group: 'edges',
+      data: {
+        id: 'e44',
+        source: 'CS441',
+        target: 'CS1655'
+      },
+    },      
+
+    { // edge
+      group: 'edges',
+      data: {
+        id: 'e45',
+        source: 'CS445',
+        target: 'CS1655'
+      },
+    },    
+
+    { // edge
+      group: 'edges',
+      data: {
+        id: 'e46',
+        source: 'CS1566',
+        target: 'CS1666'
+      },
+    }, 
+
+    { // edge
+      group: 'edges',
+      data: {
+        id: 'e47',
+        source: 'CS1501',
+        target: 'CS1671'
+      },
+    },     
+
+    { // edge
+      group: 'edges',
+      data: {
+        id: 'e48',
+        source: 'CS1502',
+        target: 'CS1671'
+      },
+    },     
+
+    { // edge
+      group: 'edges',
+      data: {
+        id: 'e49',
+        source: 'CS1501',
+        target: 'CS1675'
+      },
+    }, 
+
 	],
 
 	layout: {
 		name: 'preset'
 	},
-  });
+
+});
+
+//cy.toolbar();
 
 cy.on('tap', 'node', function(){
 	this.unselect();
