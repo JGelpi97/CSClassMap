@@ -37,7 +37,11 @@ $(function(){ // on dom ready
 	.css({      
 	  'background-color': 'black',
 	})	
-	.selector('.edgeLight')            //Special edge that identifies co-req classes
+	.selector('.majConcNode')            	//Node look for it being a major concentration course
+	.css({      
+	  'background-color': 'blue',
+	})
+	.selector('.edgeLight')            		//Special edge that identifies co-req classes
 	.css({      
 	  'line-color': 'a7a5a5',
 	  'line-style': 'dashed',

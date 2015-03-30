@@ -5,8 +5,8 @@
 	<meta charset=utf-8 />
 	<title>Pitt CS Classes</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+	<script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 	<script src="https://cytoscape.github.io/cytoscape.js/api/cytoscape.js-latest/cytoscape.min.js"></script>
 
 	<script src="code.js"></script>
@@ -28,1153 +28,1227 @@
 			$('.modal').modal('hide');				//Hide open modal
 			document.getElementById(nodeName.substring(1)).click();	//Open the modal for the thing we just went to
 		}
+
+		function selectConcentration(con)
+		{
+			var b = document.getElementById('concentrationButton');
+			b.innerHTML = con.innerHTML + ' <span class="caret"></span>';
+
+			var classes = [];
+			if (b.innerHTML.indexOf('Security') != -1)
+			{
+				classes = ['CS1555', 'CS1652', 'CS1653', 'CS1655', 'CS1622', 'CS1651'];
+			}
+			else if (b.innerHTML.indexOf('Artificial') != -1)
+			{
+				classes = ['CS1571', 'CS1671', 'CS1675', 'CS1699', 'CS1510', 'CS1538', 'CS1573'];
+			}
+			else if (b.innerHTML.indexOf('Performance') != -1)
+			{
+				classes = ['CS1541', 'CS1622', 'CS1645', 'CS1651', 'CS1652'];
+			}	
+			else if (b.innerHTML.indexOf('Business') != -1)
+			{
+				classes = ['CS1530', 'CS1555', 'CS1631'];
+			}			
+			else if (b.innerHTML.indexOf('Engineering') != -1)
+			{
+				classes = ['CS1510', 'CS1530', 'CS1555', 'CS1631', 'CS1635'];
+			}	
+
+			var cy = $('#cy').cytoscape('get');
+			var allNodes = cy.nodes();
+			for (var i = 0; i < allNodes.length; i++)
+			{
+				allNodes[i].removeClass('majConcNode');
+			}
+
+			for (var i = 0; i < classes.length; i++)
+    		{
+    			var node = cy.$('#' + classes[i]);
+    			node.addClass('majConcNode');
+    		}
+			
+			
+		}
 	</script>
 </head>
 
 <body>
 
-<div align="center">
-	<a href="#"
-		data-toggle="modal"
-		data-target="#classListModal"
-		id="classListModalLink">
-		All Classes
-	</a>
-</div>
-
-<div class="modal fade" id="classListModal" tabindex="-1" role="dialog" aria-labelledby="classListModal" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4>All Classes - Click a class to be taken to its node</h4>
-			</div>
-			<div class="modal-body">
-				<ul>
-					<li><a href="#" onclick="navigateToNode('#CS401');">CS401 - Intermediate Programming Using Java</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS441');">CS441 - Discrete Structures for Computer Science</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS445');">CS445 - Data Structures</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS447');">CS447 - Computer Organization and Assembly Language</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS449');">CS449 - Introduction to Systems Software</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS1501');">CS1501 - Algorthm Implementation</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS1502');">CS1502 - Formal Methods in Computer Science</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS1510');">CS1510 - Design and Analysis of Algorithms</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS1511');">CS1511 - Introduction to Theory of Computation</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS1515');">CS1515 - Scientific Computation</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS1520');">CS1520 - Programming Languages for Web Applications</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS1530');">CS1530 - Software Engineering</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS1538');">CS1538 - Introduction to Simulation</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS1541');">CS1541 - Introduction to Computer Architecture</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS1550');">CS1550 - Introduction to Operating Systems</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS1555');">CS1555 - Database Management Systems</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS1566');">CS1566 - Introduction to Computer Graphics</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS1567');">CS1567 - Programming and System Design on a Mobile Robot Platform</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS1571');">CS1571 - Introduction to Artificial Intelligence</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS1573');">CS1573 - Artificial Intelligence Application Development</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS1621');">CS1621 - Structure Programming Languages</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS1622');">CS1622 - Introduction to Compiler Design</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS1630');">CS1630 - Software-System Design Management</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS1631');">CS1631 - Software Design Methodology</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS1632');">CS1632 - Software Quality Assurance</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS1635');">CS1635 - Interface Design Methodology</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS1645');">CS1645 - Introduction to High Performance Computing Systems</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS1651');">CS1651 - Advanced Systems Software</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS1652');">CS1652 - Data Communication & Computer Networks</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS1653');">CS1653 - Applied Cryptography and Network Security</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS1655');">CS1655 - Secure Data Management & Web Applications</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS1666');">CS1666 - Principles of Computer Game Design & Implementation</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS1671');">CS1671 - Human Language Technologies</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS1675');">CS1675 - Introduction to Machine Learning</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS1699');">CS1699 - Spec Topics in Computer Science</a></li>
-				</ul>
-			</div>
-			<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
-			</div>
-		</div>
-	</div>
-</div>
-
-<!--Canvas-->
-<div id="cy" style="border:1px solid black"></div>
-
-
-<a href="#" class="modalButtons"
-	data-toggle="modal"
-	data-target="#cs401Modal"
-	id="CS401">
-</a>
-
-<div class="modal fade" id="cs401Modal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4>CS401 - Intermediate Programming Using Java</h4>
-			</div>
-			<div class="modal-body">
-				Description:<br/>
-				This is an intermediate course focusing on object-oriented programming and other fundamental programming concepts utilizing the Java programming language. Students are expected to have some previous programming experience prior to taking this course.
-				<hr/>
-				<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=0401" target="_blank">More Information</a>
-				<br/>            
-				Prerequisites: None
-			</div>
-			<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
-			</div>
-		</div>
-	</div>
-</div>
-
-<a href="#" class="modalButtons"
-	data-toggle="modal"
-	data-target="#cs441Modal"
-	id="CS441">
-</a>
-
-<div class="modal fade" id="cs441Modal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4>CS441 - Discrete Structures for Computer Science</h4>
-			</div>
-			<div class="modal-body">
-				Description:<br/>
-				The purpose of this course is to understand and use (abstract) discrete structures that are backbones of computer science. In particular, this class is meant to introduce logic, proofs, sets, relations, functions, counting, and probability, with an emphasis on applications in computer science.
-				<hr/>
-				<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=0441" target="_blank">More Information</a>
-				<br/>            
-				Prerequisites: 
-				<ul>
-					<li>Math 0220 - Analytic Geometry and Calculus 1</li>
-				</ul>
-			</div>
-			<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
-			</div>
-		</div>
-	</div>
-</div>
-
-<a href="#" class="modalButtons"
-	data-toggle="modal"
-	data-target="#cs445Modal"
-	id="CS445">
-</a>
-
-<div class="modal fade" id="cs445Modal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4>CS445 - Data Structures</h4>
-			</div>
-			<div class="modal-body">
-				Description:<br/>
-				This course emphasizes the study of the basic data structures of computer science (stacks, queues, trees, lists, graphs) and their implementations using the Java language. Included in this study are programming techniques which use recursion and reference variables. Students in this course are also introduced to various searching and sorting methods and are also expected to develop an intuitive understanding of the complexity of these algorithms.
-				<hr/>
-				<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=0445" target="_blank">More Information</a>
-				<br/>            
-				Prerequisites: 
-				<ul>
-					<li><a href="#" onclick="navigateToNode('#CS401');">CS401 - Intermediate Programming Using Java</a></li>
-
-				</ul>
-			</div>
-			<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
-			</div>
-		</div>
-	</div>
-</div>
-
-<a href="#" class="modalButtons"
-	data-toggle="modal"
-	data-target="#cs447Modal"
-	id="CS447">
-</a>
-
-<div class="modal fade" id="cs447Modal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4>CS447 - Computer Organization and Assembly Language</h4>
-			</div>
-			<div class="modal-body">
-				Description:<br/>	
-				The purpose of this course is to study the components of computing systems common to most computer architectures. In particular, this class is meant to introduce data representation, types of processors (e.g., RISC V. CISC), memory types and hierarchy, assembly language, linking and loading, and an introduction to device drivers.		
-				<hr/>
-				<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=0447" target="_blank">More Information</a>
-				<br/>            
-				Prerequisites: 
-				<ul>
-					<li><a href="#" onclick="navigateToNode('#CS445');">CS445 - Data Structures (May be taken concurrently)</a></li>
-				</ul>
-			</div>
-			<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
-			</div>
-		</div>
-	</div>
-</div>
-
-<a href="#" class="modalButtons"
-	data-toggle="modal"
-	data-target="#cs449Modal"
-	id="CS449">
-</a>
-
-<div class="modal fade" id="cs449Modal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4>CS449 - Introduction to Systems Software</h4>
-			</div>
-			<div class="modal-body">
-				Description:<br/>	
-				This course will introduce the students to the important systems language, C, and to several topics related to the hardware and software environment. These are issues related to device interfaces and hardware synchronization at the lowest level of the operating system, the linkage of operating system services to application software, and the fundamental mechanisms for computer communications.
-				<hr/>
-				<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=0449" target="_blank">More Information</a>
-				<br/>            
-				Prerequisites: 
-				<ul>
-					<li><a href="#" onclick="navigateToNode('#CS441');">CS441 - Discrete Structures for Computer Science</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS445');">CS445 - Data Structures</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS445');">CS447 - Computer Organization and Assembly Language (May be taken concurrently)</a></li>
-				</ul>
-			</div>
-			<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
-			</div>
-		</div>
-	</div>
-</div>
-
-<a href="#" class="modalButtons"
-	data-toggle="modal"
-	data-target="#cs1501Modal"
-	id="CS1501">
-</a>
-
-<div class="modal fade" id="cs1501Modal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4></h4>
-			</div>
-			<div class="modal-body">
-				Description:<br/>	
-				This course covers a broad range of the most commonly used algorithms. Some examples include algorithms for sorting, searching, encryption, compression and local search. The students will implement and test several algorithms. The course is programming intensive.
-				<hr/>
-				<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1501" target="_blank">More Information</a>
-				<br/>            
-				Prerequisites: 
-				<ul>
-					<li><a href="#" onclick="navigateToNode('#CS441');">CS441 - Discrete Structures for Computer Science</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS445');">CS445 - Data Structures</a></li>
-				</ul>
-			</div>
-			<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
-			</div>
-		</div>
-	</div>
-</div>
-
-<a href="#" class="modalButtons"
-	data-toggle="modal"
-	data-target="#cs1502Modal"
-	id="CS1502">
-</a>
-
-<div class="modal fade" id="cs1502Modal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4>CS1502 - Formal Methods in Computer Science</h4>
-			</div>
-			<div class="modal-body">
-				Description:<br/>	
-				The goals of the course are to develop student skills in modeling problems using discrete mathematics, to introduce students to new discrete structures, to further develop students' mathematical and algorithmic reasoning skills, and to introduce students to the theoretical study of information and computations as a physical phenomenon. Topics covered will include: discrete mathematics; algorithm analysis, including asymptotic notation, finding run times of iterative programs with nested loops, and using recurrence relations to find run times of recursive programs; and theory of computation, including finite state machines, regular languages, Kleene's Theorem, Church-Turing Thesis, and non-computability of the Halting Problem.
-				<hr/>
-				<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1502" target="_blank">More Information</a>
-				<br/>            
-				Prerequisites: 
-				<ul>
-					<li><a href="#" onclick="navigateToNode('#CS441');">CS441 - Discrete Structures for Computer Science</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS445');">CS445 - Data Structures</a></li>
-				</ul>
-			</div>
-			<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
-			</div>
-		</div>
-	</div>
-</div>
-
-<a href="#" class="modalButtons"
-	data-toggle="modal"
-	data-target="#cs1510Modal"
-	id="CS1510">
-</a>
-
-<div class="modal fade" id="cs1510Modal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4>CS1510 - Design and Analysis of Algorithms</h4>
-			</div>
-			<div class="modal-body">
-				Description:<br/>	
-				This course will cover methods and strategies that are useful for the design of nonnumeric algorithms. Students are expected to design their own algorithms.
-				<hr/>
-				<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1510" target="_blank">More Information</a>
-				<br/>            
-				Prerequisites: 
-				<ul>
-					<li><a href="#" onclick="navigateToNode('#CS1501');">CS1501 - Algorthm Implementation</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS1502');">CS1502 - Formal Methods in Computer Science</a></li>
-				</ul>
-			</div>
-			<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
-			</div>
-		</div>
-	</div>
-</div>
-
-<a href="#" class="modalButtons"
-	data-toggle="modal"
-	data-target="#cs1511Modal"
-	id="CS1511">
-</a>
-
-<div class="modal fade" id="cs1511Modal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4>CS1511 - Introduction to Theory of Computation</h4>
-			</div>
-			<div class="modal-body">
-				Description:<br/>	
-				Understanding the theory of computation provides deeper insights into various topics in computer science. This is an introductory level theory course. The aim of this course is to study the power (or lack of it) of various models of computation. Topics to be covered include: computability theory, automata theory, and languages.
-				<hr/>
-				<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1511" target="_blank">More Information</a>
-				<br/>            
-				Prerequisites: 
-				<ul>
-					<li><a href="#" onclick="navigateToNode('#CS1502');">CS1502 - Formal Methods in Computer Science</a></li>
-				</ul>
-			</div>
-			<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
-			</div>
-		</div>
-	</div>
-</div>
-
-<a href="#" class="modalButtons"
-	data-toggle="modal"
-	data-target="#cs1515Modal"
-	id="CS1515">
-</a>
-
-<div class="modal fade" id="cs1515Modal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4>CS1515 - Scientific Computation</h4>
-			</div>
-			<div class="modal-body">
-				Description:<br/>	
-				Numerical methods used in scientific computation will be discussed, with particular reference to their data structuring and verification aspects. The methods will be selected from the following: solution of systems of linear equations, solution of non-linear equations, approximation, and solution of ordinary differential equations.
-				<hr/>
-				<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1515" target="_blank">More Information</a>
-				<br/>            
-				Prerequisites: 
-				<ul>
-					<li><a href="#" onclick="navigateToNode('#CS445');">CS445 - Data Structures</a></li>
-					<li>Math 0230</li>
-					<li>Math 0280 or Math 1180</li>
-				</ul>
-			</div>
-			<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
-			</div>
-		</div>
-	</div>
-</div>
-
-<a href="#" class="modalButtons"
-	data-toggle="modal"
-	data-target="#cs1520Modal"
-	id="CS1520">
-</a>
-
-<div class="modal fade" id="cs1520Modal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4>CS1520 - Programming Languages for Web Applications</h4>
-			</div>
-			<div class="modal-body">
-				Description:<br/>	
-				Various programming paradigms will be studied using Java and scripting languages. The use of Java in programming web based applications, network applications, and the use of the extensive Java libraries will be studied. The programming paradigm of building software by gluing components will be explored through the use of scripting languages such as Perl and JavaScript. Applications include developing GUIs and internet programming.
-				<hr/>
-				<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1520" target="_blank">More Information</a>
-				<br/>            
-				Prerequisites: 
-				<ul>
-					<li><a href="#" onclick="navigateToNode('#CS445');">CS445 - Data Structures</a></li>
-				</ul>
-			</div>
-			<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
-			</div>
-		</div>
-	</div>
-</div>
-
-<a href="#" class="modalButtons"
-	data-toggle="modal"
-	data-target="#cs1530Modal"
-	id="CS1530">
-</a>
-
-<div class="modal fade" id="cs1530Modal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4>CS1530 - Software Engineering</h4>
-			</div>
-			<div class="modal-body">
-				Description:<br/>	
-				The purpose of this course is to provide a general survey of software engineering. Some of the topics covered include: project planning and management, design techniques, verification and validation, and software maintenance. Particular emphasis is on a group project in which a group of 4-5 students implement a system from its specification.
-				<hr/>
-				<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1530" target="_blank">More Information</a>
-				<br/>            
-				Prerequisites: 
-				<ul>
-					<li><a href="#" onclick="navigateToNode('#CS445');">CS445 - Data Structures</a></li>
-				</ul>
-			</div>
-			<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
-			</div>
-		</div>
-	</div>
-</div>
-
-<a href="#" class="modalButtons"
-	data-toggle="modal"
-	data-target="#cs1538Modal"
-	id="CS1538">
-</a>
-
-<div class="modal fade" id="cs1538Modal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4>CS1538 - Introduction to Simulation</h4>
-			</div>
-			<div class="modal-body">
-				Description:<br/>	
-				This course introduces students to the concepts, definitions, and techniques applicable to the modeling and simulation of systems. Primary emphasis is on discrete systems, although continuous systems are also discussed. A major objective of the course is to familiarize the student with several important discrete simulation programming languages and to illustrate their uses in the modeling and simulation of various kinds of systems. Programming is carried out using CSIM. Topics include: systems characterization, classification, and model types; advantages and disadvantages of simulation studies; pertinence of probability and statistics to the representation of stochastic processes and non-deterministic behaviors in system models; different viewpoints and orientations in conducting system simulations; modeling tools and techniques used in selected simulation programming environments; validation and verification.
-				<hr/>
-				<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1538" target="_blank">More Information</a>
-				<br/>            
-				Prerequisites: 
-				<ul>					
-					<li><a href="#" onclick="navigateToNode('#CS447');">CS447 - Computer Organization and Assembly Language</a></li>
-					<li>One statistics course</li>
-				</ul>
-			</div>
-			<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
-			</div>
-		</div>
-	</div>
-</div>
-
-<a href="#" class="modalButtons"
-	data-toggle="modal"
-	data-target="#cs1541Modal"
-	id="CS1541">
-</a>
-
-<div class="modal fade" id="cs1541Modal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4>CS1541 - Introduction to Computer Architecture</h4>
-			</div>
-			<div class="modal-body">
-				Description:<br/>	
-				Examination of computer architecture and hardware system organization. Topics include: CPU organization, sequential and microprogrammed control, instruction set implementation, memory organizations, input/output structure, peripherals and interfacing, and computer communications.
-				<hr/>
-				<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1541" target="_blank">More Information</a>
-				<br/>            
-				Prerequisites: 
-				<ul>
-					<li><a href="#" onclick="navigateToNode('#CS449');">CS449 - Introduction to Systems Software</a></li>
-				</ul>
-			</div>
-			<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
-			</div>
-		</div>
-	</div>
-</div>
-
-<a href="#" class="modalButtons"
-	data-toggle="modal"
-	data-target="#cs1550Modal"
-	id="CS1550">
-</a>
-
-<div class="modal fade" id="cs1550Modal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4>CS1550 - Introduction to Operating Systems</h4>
-			</div>
-			<div class="modal-body">
-				Description:<br/>	
-				The purpose of this course is to understand and use the basic concepts of operating systems, common to most computer systems, which interfaces the machine with the programmer. In particular, this class is meant to introduce processes such as the processing unit, process management, concurrency, communication, memory management and protection, and file systems.
-				<hr/>
-				<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1550" target="_blank">More Information</a>
-				<br/>            
-				Prerequisites: 
-				<ul>
-					<li><a href="#" onclick="navigateToNode('#CS447');">CS447 - Computer Organization and Assembly Language</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS449');">CS449 - Introduction to Systems Software</a></li>
-				</ul>
-			</div>
-			<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
-			</div>
-		</div>
-	</div>
-</div>
-
-<a href="#" class="modalButtons"
-	data-toggle="modal"
-	data-target="#cs1555Modal"
-	id="CS1555">
-</a>
-
-<div class="modal fade" id="cs1555Modal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4>CS1555 - Database Management Systems</h4>
-			</div>
-			<div class="modal-body">
-				Description:<br/>	
-				The objective of this course is to provide an in-depth knowledge of database systems design. Thus, the emphasis is on how to model ones own data and how to use available Database Management Systems effectively. Towards this end, the relational and the object-relational models are discussed in great detail and object-oriented and other data models are also presented. Commercial database management systems are examined and students get practical experience through the use of such systems.
-				<hr/>
-				<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1555" target="_blank">More Information</a>
-				<br/>            
-				Prerequisites: 
-				<ul>				
-					<li><a href="#" onclick="navigateToNode('#CS441');">CS441 - Discrete Structures for Computer Science</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS445');">CS445 - Data Structures</a></li>
-				</ul>
-			</div>
-			<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
-			</div>
-		</div>
-	</div>
-</div>
-
-<a href="#" class="modalButtons"
-	data-toggle="modal"
-	data-target="#cs1566Modal"
-	id="CS1566">
-</a>
-
-<div class="modal fade" id="cs1566Modal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4>CS1566 - Introduction to Computer Graphics</h4>
-			</div>
-			<div class="modal-body">
-				Description:<br/>	
-				This course offers an in-depth exploration of fundamental concepts in 2D and 3D computer graphics. The bulk of the course is devoted to 3D modeling, geometric transformations, and 3D viewing and rendering.
-				<hr/>
-				<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1566" target="_blank">More Information</a>
-				<br/>            
-				Prerequisites: 
-				<ul>				
-					<li><a href="#" onclick="navigateToNode('#CS447');">CS447 - Computer Organization and Assembly Language (or instructor's written permission)</a></li>
-				</ul>
-			</div>
-			<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
-			</div>
-		</div>
-	</div>
-</div>
-
-<a href="#" class="modalButtons"
-	data-toggle="modal"
-	data-target="#cs1567Modal"
-	id="CS1567">
-</a>
-
-<div class="modal fade" id="cs1567Modal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4>CS1567 - Programming and System Design on a Mobile Robot Platform</h4>
-			</div>
-			<div class="modal-body">
-				Description:<br/>	
-				Students will be introduced to a variety of programming techniques and paradigms, for implementing medium- to large-scale software systems. System integration is done on a mobile robot platform rather than a traditional desktop system. However, this is not a course in robotics. It is a course about building systems in a real-world environment.
-				<hr/>
-				<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1567" target="_blank">More Information</a>
-				<br/>            
-				Prerequisites: 
-				<ul>				
-					<li><a href="#" onclick="navigateToNode('#CS441');">CS441 - Discrete Structures for Computer Science</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS445');">CS445 - Data Structures</a></li>
-					<li>This is an honors course and requires a minimum CUM GPA of 3.25 or special permission from the instructor.</li>
-				</ul>			
-			</div>
-			<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
-			</div>
-		</div>
-	</div>
-</div>
-
-<a href="#" class="modalButtons"
-	data-toggle="modal"
-	data-target="#cs1571Modal"
-	id="CS1571">
-</a>
-
-<div class="modal fade" id="cs1571Modal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4>CS1571 - Introduction to Artificial Intelligence</h4>
-			</div>
-			<div class="modal-body">
-				Description:<br/>	
-				This course will provide an introduction to the fundamental concepts and techniques underlying the construction of intelligent computer systems. Topics typically covered in the course include: problem solving and search, logic and knowledge representation, planning, reasoning and decision- making in the presence of uncertainty, and machine learning.
-				<hr/>
-				<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1571" target="_blank">More Information</a>
-				<br/>            
-				Prerequisites: 
-				<ul>				
-					<li><a href="#" onclick="navigateToNode('#CS1501');">CS1501 - Algorthm Implementation</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS1502');">CS1502 - Formal Methods in Computer Science</a></li>		
-				</ul>
-			</div>
-			<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
-			</div>
-		</div>
-	</div>
-</div>
-
-<a href="#" class="modalButtons"
-	data-toggle="modal"
-	data-target="#cs1573Modal"
-	id="CS1573">
-</a>
-
-<div class="modal fade" id="cs1573Modal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4>CS1573 - Artificial Intelligence Application Development</h4>
-			</div>
-			<div class="modal-body">
-				Description:<br/>	
-				This course is about using concepts of artificial intelligence to solve current, real-world problems. In particular, we will focus on the area of machine learning, which has brought advances to many fields of studies such as bioinformatics, computational linguistics, and economics. This course will give an overview of the models and algorithms used in modern machine learning, including (but not limited to) generalized linear models, multi-layer neural networks, and clustering.
-				<hr/>
-				<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1573" target="_blank">More Information</a>
-				<br/>            
-				Prerequisites: 
-				<ul>				
-					<li><a href="#" onclick="navigateToNode('#CS1501');">CS1501 - Algorthm Implementation</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS1502');">CS1502 - Formal Methods in Computer Science</a></li>
-				</ul>
-			</div>
-			<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
-			</div>
-		</div>
-	</div>
-</div>
-
-<a href="#" class="modalButtons"
-	data-toggle="modal"
-	data-target="#cs1621Modal"
-	id="CS1621">
-</a>
-
-<div class="modal fade" id="cs1621Modal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4>CS1621 - Structure Programming Languages</h4>
-			</div>
-			<div class="modal-body">
-				Description:<br/>	
-				An analytical examination of modern high-level programming language structures, including design specification and implementation. Advanced forms of data types, expressions, and control primitives. Relationship of storage management techniques and language design.
-				<hr/>
-				<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1621" target="_blank">More Information</a>
-				<br/>            
-				Prerequisites: 
-				<ul>				
-					<li><a href="#" onclick="navigateToNode('#CS441');">CS441 - Discrete Structures for Computer Science</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS445');">CS445 - Data Structures</a></li>
-				</ul>
-			</div>
-			<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
-			</div>
-		</div>
-	</div>
-</div>
-
-<a href="#" class="modalButtons"
-	data-toggle="modal"
-	data-target="#cs1622Modal"
-	id="CS1622">
-</a>
-
-<div class="modal fade" id="cs1622Modal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4>CS1622 - Introduction to Compiler Design</h4>
-			</div>
-			<div class="modal-body">
-				Description:<br/>	
-				This course intoduces the basic concepts of compiler design and implementation. Topics include: lexical analysis, various types of parsers, intermediate and object code generation and code optimization. Material will be presented from an implementation point of view rather than from a formal approach. The impact of language design on compilers will also be examined.
-				<hr/>
-				<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1622" target="_blank">More Information</a>
-				<br/>            
-				Prerequisites: 
-				<ul>				
-					<li><a href="#" onclick="navigateToNode('#CS441');">CS441 - Discrete Structures for Computer Science</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS447');">CS447 - Computer Organization and Assembly Language</a></li>
-				</ul>
-			</div>
-			<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
-			</div>
-		</div>
-	</div>
-</div>
-
-<a href="#" class="modalButtons"
-	data-toggle="modal"
-	data-target="#cs1630Modal"
-	id="CS1630">
-</a>
-
-<div class="modal fade" id="cs1630Modal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4>CS1630 - Software-System Design Management</h4>
-			</div>
-			<div class="modal-body">
-				Description:<br/>	
-				Software-System Design and Management is a software engineering course with particular emphasis on project management, usability testing, customer interviewing, specification of formal requirements, and oral communication. In addition to the focus on a team programming project, we discuss, debate, and think about the team software design and development process. The students learn how to effectively communicate orally - from pitching ideas to a project manager, to interviewing a customer, resolving conflict with another team member, giving feedback and presenting results.
-				<hr/>
-				<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1630" target="_blank">More Information</a>
-				<br/>            
-				Prerequisites: 
-				<ul>				
-					<li><a href="#" onclick="navigateToNode('#CS1501');">CS1501 - Algorthm Implementation</a></li>					
-				</ul>
-				And either:
-				<ul>
-					<li><a href="#" onclick="navigateToNode('#CS1520');">CS1520 - Programming Languages for Web Applications</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS1530');">CS1530 - Software Engineering</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS1550');">CS1550 - Introduction to Operating Systems</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS1566');">CS1566 - Introduction to Computer Graphics</a></li>
-					<li>or instructor's permission.</li>
-				</ul>
-			</div>
-			<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
-			</div>
-		</div>
-	</div>
-</div>
-
-<a href="#" class="modalButtons"
-	data-toggle="modal"
-	data-target="#cs1631Modal"
-	id="CS1631">
-</a>
-
-<div class="modal fade" id="cs1631Modal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4>CS1631 - Software Design Methodology</h4>
-			</div>
-			<div class="modal-body">
-				Description:<br/>	
-				Construction of large computerized systems proceeds through the stages of requirements analysis and specification, in particular, methodologies for improving the reliability of specifications (executable specifications and system prototypes). Emphasis is on a group project in which 4-5 students specify an information control system.
-				<hr/>
-				<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1631" target="_blank">More Information</a>
-				<br/>            
-				Prerequisites: 
-				<ul>				
-					<li><a href="#" onclick="navigateToNode('#CS441');">CS441 - Discrete Structures for Computer Science</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS445');">CS445 - Data Structures</a></li>					
-				</ul>
-			</div>
-			<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
-			</div>
-		</div>
-	</div>
-</div>
-
-<a href="#" class="modalButtons"
-	data-toggle="modal"
-	data-target="#cs1632Modal"
-	id="CS1632">
-</a>
-
-<div class="modal fade" id="cs1632Modal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4>CS1632 - Software Quality Assurance</h4>
-			</div>
-			<div class="modal-body">
-				Description:<br/>	
-				This course provides students with a broad understanding of modern software testing and quality assurance. Although it will cover testing theory, the emphasis is on providing practical skills in software testing currently used in industry. To that end, it will cover: manual and automated tests, test- driven and behavior-driven development, performance testing, and understanding and developing a testing process. The course is project-oriented, with students working in groups on specific deliverables on various software products, as would be expected in an industry setting.
-				<hr/>
-				<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1632" target="_blank">More Information</a>
-				<br/>            
-				Prerequisites: 
-				<ul>				
-					<li><a href="#" onclick="navigateToNode('#CS445');">CS445 - Data Structures</a></li>
-				</ul>
-			</div>
-			<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
-			</div>
-		</div>
-	</div>
-</div>
-
-<a href="#" class="modalButtons"
-	data-toggle="modal"
-	data-target="#cs1635Modal"
-	id="CS1635">
-</a>
-
-<div class="modal fade" id="cs1635Modal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4>CS1635 - Interface Design Methodology</h4>
-			</div>
-			<div class="modal-body">
-				Description:<br/>	
-				In this course, you will learn essential skills on designing, prototyping and evaluating mobile applications. Key topics of this course include - state-of-the-art mobile interfaces and interaction technologies, How to design and implement effective applications for the small screen, with limited I/O modalities for people with limited time and attentions etc.
-				<hr/>
-				<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=0445" target="_blank">More Information</a>
-				<br/>            
-				Prerequisites: 
-				<ul>				
-					<li><a href="#" onclick="navigateToNode('#CS445');">CS445 - Data Structures</a></li>
-				</ul>
-			</div>
-			<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
-			</div>
-		</div>
-	</div>
-</div>
-
-<a href="#" class="modalButtons"
-	data-toggle="modal"
-	data-target="#cs1645Modal"
-	id="CS1645">
-</a>
-
-<div class="modal fade" id="cs1645Modal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4>CS1645 - Introduction to High Performance Computing Systems</h4>
-			</div>
-			<div class="modal-body">
-				Description:<br/>	
-				This course is an introduction to the architecture of and software techniques for parallel and high performance computing systems. The content includes fundamental architecture aspects of shared-memory and distributed-memory systems, as well as paradigms, algorithms and languages used to program parallel systems. Students will complete a number of projects demonstrating specific applications on parallel processing systems.
-				<hr/>
-				<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1645" target="_blank">More Information</a>
-				<br/>            
-				Prerequisites: 
-				<ul>				
-					<li><a href="#" onclick="navigateToNode('#CS447');">CS447 - Computer Organization and Assembly Language</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS449');">CS449 - Introduction to Systems Software</a></li>
-				</ul>
-			</div>
-			<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
-			</div>
-		</div>
-	</div>
-</div>
-
-<a href="#" class="modalButtons"
-	data-toggle="modal"
-	data-target="#cs1651Modal"
-	id="CS1651">
-</a>
-
-<div class="modal fade" id="cs1651Modal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4>CS1651 - Advanced Systems Software</h4>
-			</div>
-			<div class="modal-body">
-				Description:<br/>	
-				Operating systems are fundamental to all modern computers. These systems are characterized by a wide range of functionality and complexity. All variants, however, use a core set of ideas. The purpose of the course is to discuss issues of fundamental importance in the design of operating systems. The subjects discussed include processes, semaphores, monitors, interprocess communication, scheduling, memory management, paging, segmentation, file systems, security and protection mechanisms. The objective of the course is to provide a clear understanding of these key problems and bring awareness of the known solutions to these problems and to the limitations of these solutions.
-				<hr/>
-				<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1651" target="_blank">More Information</a>
-				<br/>            
-				Prerequisites: 
-				<ul>				
-					<li><a href="#" onclick="navigateToNode('#CS1550');">CS1550 - Introduction to Operating Systems</a></li>
-				</ul>
-			</div>
-			<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
-			</div>
-		</div>
-	</div>
-</div>
-
-<a href="#" class="modalButtons"
-	data-toggle="modal"
-	data-target="#cs1652Modal"
-	id="CS1652">
-</a>
-
-<div class="modal fade" id="cs1652Modal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4>CS1652 - Data Communication & Computer Networks</h4>
-			</div>
-			<div class="modal-body">
-				Description:<br/>	
-				The course emphasizes basic principles and topics of computer communications. The first part of the course provides an overview of interfaces that interconnect hardware and software components, describes the procedures and rules involved in the communication process and most importantly the software which controls computers communication. The second part of the course discusses network architectures and design principles, and describes the basic protocol suites. The third part of the course introduces the concept of internetworking, a powerful abstraction that deals with the complexity of multiple underlying communication technologies.
-				<hr/>
-				<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1652" target="_blank">More Information</a>
-				<br/>            
-				Prerequisites: 
-				<ul>				
-					<li><a href="#" onclick="navigateToNode('#CS449');">CS449 - Introduction to Systems Software</a></li>
-				</ul>
-			</div>
-			<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
-			</div>
-		</div>
-	</div>
-</div>
-
-<a href="#" class="modalButtons"
-	data-toggle="modal"
-	data-target="#cs1653Modal"
-	id="CS1653">
-</a>
-
-<div class="modal fade" id="cs1653Modal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4>CS1653 - Applied Cryptography and Network Security</h4>
-			</div>
-			<div class="modal-body">
-				Description:<br/>	
-				The goal of this course is to provide students the necessary conceptual background and hands-on experience to understand the most common cryptographic algorithms and protocols and how to use them to secure distributed applications and computer networks.
-				<hr/>
-				<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1653" target="_blank">More Information</a>
-				<br/>            
-				Prerequisites: 
-				<ul>				
-					<li><a href="#" onclick="navigateToNode('#CS449');">CS449 - Introduction to Systems Software (or permission of instructor.)</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS1501');">CS1501 - Algorthm Implementation (or permission of instructor.)</a></li>
-				</ul>
-			</div>
-			<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
-			</div>
-		</div>
-	</div>
-</div>
-
-<a href="#" class="modalButtons"
-	data-toggle="modal"
-	data-target="#cs1655Modal"
-	id="CS1655">
-</a>
-
-<div class="modal fade" id="cs1655Modal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4>CS1655 - Secure Data Management & Web Applications</h4>
-			</div>
-			<div class="modal-body">
-				Description:<br/>	
-				The main objectives for this course are: (1) To study in more depth query optimization and security, (2) To study advanced topics: data mining, information retrieval, and web data management, and (3) to expose students to advanced data and information management technologies, while gaining hands-on experience. These include mobile data management, continuous queries and their applications in areas such as biomedical informatics and E-Commerce.
-				<hr/>
-				<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1655" target="_blank">More Information</a>
-				<br/>            
-				Prerequisites: 
-				<ul>				
-					<li><a href="#" onclick="navigateToNode('#CS441');">CS441 - Discrete Structures for Computer Science</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS445');">CS445 - Data Structures</a></li>					
-				</ul>
-			</div>
-			<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
-			</div>
-		</div>
-	</div>
-</div>
-
-<a href="#" class="modalButtons"
-	data-toggle="modal"
-	data-target="#cs1666Modal"
-	id="CS1666">
-</a>
-
-<div class="modal fade" id="cs1666Modal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
+	<nav class="navbar navbar-default">
+	  <div class="container-fluid">
+	    <!-- Brand and toggle get grouped for better mobile display -->
+	    <div class="navbar-header">
+	      <a class="navbar-brand">University of Pittsburgh - Computer Science Classes</a>
+	    </div>
+
+	    <!-- Collect the nav links, forms, and other content for toggling -->
+	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	      <ul class="nav navbar-nav">
+	      	<li>
+	      		<button id="classListModalLink" 
+	      				type="button" 
+	      				data-target="#classListModal" 
+	      				data-toggle="modal" 
+	      				class="btn btn-default navbar-btn">
+	      				All Classes
+	      		</button>
+			</li>
+	        <li><a>Major Concentration:</a></li>
+			<li class="navbar-btn">
+			  	<button id="concentrationButton" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+			    	None <span class="caret"></span>
+			  	</button>
+			  	<ul class="dropdown-menu" role="menu">
+			  		<li><a href="#" onclick="selectConcentration(this);">None</a></li>
+			  		<li class="divider"></li>
+		            <li><a href="#" onclick="selectConcentration(this);">Security</a></li>
+		            <li><a href="#" onclick="selectConcentration(this);">Artificial Intelligence</a></li>
+		            <li><a href="#" onclick="selectConcentration(this);">High Performance Systems</a></li>
+		            <li><a href="#" onclick="selectConcentration(this);">The Business of Software</a></li>
+		            <li><a href="#" onclick="selectConcentration(this);">Software Engineering</a></li>
+		            <li class="divider"></li>
+		            <li><a href="http://www.cs.pitt.edu/undergrad/csmajor-concentrations.php" target="_blank">More Information -></a></li>
+			  	</ul>
+			</li>            
+	      </ul>
+	    </div><!-- /.navbar-collapse -->
+	  </div><!-- /.container-fluid -->
+	</nav>
+
+	<!--Canvas-->
+	<div id="cy"></div>
+
+	<div class="modal fade" id="classListModal" tabindex="-1" role="dialog" aria-labelledby="classListModal" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
 				<div class="modal-header">
-				<h4>CS1666 - Principles of Computer Game Design & Implementation</h4>
-			</div>
-			<div class="modal-body">
-				Description:<br/>	
-				This course provides an introduction to the fundamental technologies behind computer games as well as hands-on experience in the design and development of a computer game. Each student will create their own level that will become part of a common computer game environment for the course. This course will provide a rigorous introduction to the technologies used in the design and development of computer games such as advanced 3D graphics, quaternions, 3D physics engines, character animation, level design, terrain modeling, and AI path finding. Students will learn how to use the key state-of-the-art software tools for creating computer games.
-				<hr/>
-				<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1666" target="_blank">More Information</a>
-				<br/>            
-				Prerequisites: 
-				<ul>				
-					<li><a href="#" onclick="navigateToNode('#CS1566');">CS1566 - Introduction to Computer Graphics</a></li>
-				</ul>
-			</div>
-			<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
-			</div>
-		</div>
-	</div>
-</div>
-
-<a href="#" class="modalButtons"
-	data-toggle="modal"
-	data-target="#cs1671Modal"
-	id="CS1671">
-</a>
-
-<div class="modal fade" id="cs1671Modal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4>CS1671 - Human Language Technologies</h4>
-			</div>
-			<div class="modal-body">
-				Description:<br/>	
-				This course provides an introduction to the field of natural language processing (NLP) - The creation of computer programs that can understand, generate, and learn languages used by humans. It will expose students to real-world applications such as speech recognition, information retrieval, dialogue agents, question answering systems, and machine translations by means of computational techniques including search algorithms, dynamic programming, hidden markov models, probalistic context free grammars, and related machine learning algorithms.
-				<hr/>
-				<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1671" target="_blank">More Information</a>
-				<br/>            
-				Prerequisites: 
-				<ul>			
-					<li><a href="#" onclick="navigateToNode('#CS1501');">CS1501 - Algorthm Implementation</a></li>
-					<li><a href="#" onclick="navigateToNode('#CS1502');">CS1502 - Formal Methods in Computer Science</a></li>	
-				</ul>
-			</div>
-			<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+					<h4>All Classes - Click a class to be taken to its node</h4>
+				</div>
+				<div class="modal-body">
+					<ul>
+						<li><a href="#" onclick="navigateToNode('#CS401');">CS401 - Intermediate Programming Using Java</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS441');">CS441 - Discrete Structures for Computer Science</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS445');">CS445 - Data Structures</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS447');">CS447 - Computer Organization and Assembly Language</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS449');">CS449 - Introduction to Systems Software</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS1501');">CS1501 - Algorthm Implementation</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS1502');">CS1502 - Formal Methods in Computer Science</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS1510');">CS1510 - Design and Analysis of Algorithms</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS1511');">CS1511 - Introduction to Theory of Computation</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS1515');">CS1515 - Scientific Computation</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS1520');">CS1520 - Programming Languages for Web Applications</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS1530');">CS1530 - Software Engineering</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS1538');">CS1538 - Introduction to Simulation</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS1541');">CS1541 - Introduction to Computer Architecture</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS1550');">CS1550 - Introduction to Operating Systems</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS1555');">CS1555 - Database Management Systems</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS1566');">CS1566 - Introduction to Computer Graphics</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS1567');">CS1567 - Programming and System Design on a Mobile Robot Platform</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS1571');">CS1571 - Introduction to Artificial Intelligence</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS1573');">CS1573 - Artificial Intelligence Application Development</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS1621');">CS1621 - Structure Programming Languages</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS1622');">CS1622 - Introduction to Compiler Design</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS1630');">CS1630 - Software-System Design Management</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS1631');">CS1631 - Software Design Methodology</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS1632');">CS1632 - Software Quality Assurance</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS1635');">CS1635 - Interface Design Methodology</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS1645');">CS1645 - Introduction to High Performance Computing Systems</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS1651');">CS1651 - Advanced Systems Software</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS1652');">CS1652 - Data Communication & Computer Networks</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS1653');">CS1653 - Applied Cryptography and Network Security</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS1655');">CS1655 - Secure Data Management & Web Applications</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS1666');">CS1666 - Principles of Computer Game Design & Implementation</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS1671');">CS1671 - Human Language Technologies</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS1675');">CS1675 - Introduction to Machine Learning</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS1699');">CS1699 - Spec Topics in Computer Science</a></li>
+					</ul>
+				</div>
+				<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
 
-<a href="#" class="modalButtons"
-	data-toggle="modal"
-	data-target="#cs1675Modal"
-	id="CS1675">
-</a>
+	<a href="#" class="modalButtons"
+		data-toggle="modal"
+		data-target="#cs401Modal"
+		id="CS401">
+	</a>
 
-<div class="modal fade" id="cs1675Modal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4>CS1675 - Introduction to Machine Learning</h4>
-			</div>
-			<div class="modal-body">
-				Description:<br/>	
-				This introductory machine learning course will give an overview of many models and algorithms used in modern machine learning including linear models, multi-layer neural networks, support vector machines, density estimation methods, Bayesian belief networks, clustering, ensemble methods, and reinforcement of learning. The course will give the student the basic ideas and intuition behind these methods as well as a more formal understanding of how and why they work. Through homework assignments students will have an opportunity to experiment with many machine learning techniques and apply them to various real-world datasets.
-				<hr/>
-				<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1675" target="_blank">More Information</a>
-				<br/>            
-				Prerequisites: 
-				<ul>				
-					<li><a href="#" onclick="navigateToNode('#CS1501');">CS1501 - Algorthm Implementation</a></li>
-					<li>Stats 1000, Stats 1100, or Stats 1151</li>
-				</ul>
-			</div>
-			<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+	<div class="modal fade" id="cs401Modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>CS401 - Intermediate Programming Using Java</h4>
+				</div>
+				<div class="modal-body">
+					Description:<br/>
+					This is an intermediate course focusing on object-oriented programming and other fundamental programming concepts utilizing the Java programming language. Students are expected to have some previous programming experience prior to taking this course.
+					<hr/>
+					<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=0401" target="_blank">More Information</a>
+					<br/>            
+					Prerequisites: None
+				</div>
+				<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
 
-<a href="#" class="modalButtons"
-	data-toggle="modal"
-	data-target="#cs1699Modal"
-	id="CS1699">
-</a>
+	<a href="#" class="modalButtons"
+		data-toggle="modal"
+		data-target="#cs441Modal"
+		id="CS441">
+	</a>
 
-<div class="modal fade" id="cs1699Modal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4>CS1699 - Spec Topics in Computer Science</h4>
-			</div>
-			<div class="modal-body">
-				Description:<br/>	
-				The special topics courses can be different each semester. Check the link below for information.
-				<hr/>
-				<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1699" target="_blank">More Information</a>
-				<br/>            
-				Prerequisites: 
-				<ul>				
-					<li>Prerequisites depend on what the course is for the semester, check the link above for more information.</li>
-				</ul>
-			</div>
-			<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+	<div class="modal fade" id="cs441Modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>CS441 - Discrete Structures for Computer Science</h4>
+				</div>
+				<div class="modal-body">
+					Description:<br/>
+					The purpose of this course is to understand and use (abstract) discrete structures that are backbones of computer science. In particular, this class is meant to introduce logic, proofs, sets, relations, functions, counting, and probability, with an emphasis on applications in computer science.
+					<hr/>
+					<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=0441" target="_blank">More Information</a>
+					<br/>            
+					Prerequisites: 
+					<ul>
+						<li>Math 0220 - Analytic Geometry and Calculus 1</li>
+					</ul>
+				</div>
+				<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
+
+	<a href="#" class="modalButtons"
+		data-toggle="modal"
+		data-target="#cs445Modal"
+		id="CS445">
+	</a>
+
+	<div class="modal fade" id="cs445Modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>CS445 - Data Structures</h4>
+				</div>
+				<div class="modal-body">
+					Description:<br/>
+					This course emphasizes the study of the basic data structures of computer science (stacks, queues, trees, lists, graphs) and their implementations using the Java language. Included in this study are programming techniques which use recursion and reference variables. Students in this course are also introduced to various searching and sorting methods and are also expected to develop an intuitive understanding of the complexity of these algorithms.
+					<hr/>
+					<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=0445" target="_blank">More Information</a>
+					<br/>            
+					Prerequisites: 
+					<ul>
+						<li><a href="#" onclick="navigateToNode('#CS401');">CS401 - Intermediate Programming Using Java</a></li>
+
+					</ul>
+				</div>
+				<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a href="#" class="modalButtons"
+		data-toggle="modal"
+		data-target="#cs447Modal"
+		id="CS447">
+	</a>
+
+	<div class="modal fade" id="cs447Modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>CS447 - Computer Organization and Assembly Language</h4>
+				</div>
+				<div class="modal-body">
+					Description:<br/>	
+					The purpose of this course is to study the components of computing systems common to most computer architectures. In particular, this class is meant to introduce data representation, types of processors (e.g., RISC V. CISC), memory types and hierarchy, assembly language, linking and loading, and an introduction to device drivers.		
+					<hr/>
+					<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=0447" target="_blank">More Information</a>
+					<br/>            
+					Prerequisites: 
+					<ul>
+						<li><a href="#" onclick="navigateToNode('#CS445');">CS445 - Data Structures (May be taken concurrently)</a></li>
+					</ul>
+				</div>
+				<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a href="#" class="modalButtons"
+		data-toggle="modal"
+		data-target="#cs449Modal"
+		id="CS449">
+	</a>
+
+	<div class="modal fade" id="cs449Modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>CS449 - Introduction to Systems Software</h4>
+				</div>
+				<div class="modal-body">
+					Description:<br/>	
+					This course will introduce the students to the important systems language, C, and to several topics related to the hardware and software environment. These are issues related to device interfaces and hardware synchronization at the lowest level of the operating system, the linkage of operating system services to application software, and the fundamental mechanisms for computer communications.
+					<hr/>
+					<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=0449" target="_blank">More Information</a>
+					<br/>            
+					Prerequisites: 
+					<ul>
+						<li><a href="#" onclick="navigateToNode('#CS441');">CS441 - Discrete Structures for Computer Science</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS445');">CS445 - Data Structures</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS445');">CS447 - Computer Organization and Assembly Language (May be taken concurrently)</a></li>
+					</ul>
+				</div>
+				<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a href="#" class="modalButtons"
+		data-toggle="modal"
+		data-target="#cs1501Modal"
+		id="CS1501">
+	</a>
+
+	<div class="modal fade" id="cs1501Modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>Algorthm Implementation</h4>
+				</div>
+				<div class="modal-body">
+					Description:<br/>	
+					This course covers a broad range of the most commonly used algorithms. Some examples include algorithms for sorting, searching, encryption, compression and local search. The students will implement and test several algorithms. The course is programming intensive.
+					<hr/>
+					<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1501" target="_blank">More Information</a>
+					<br/>            
+					Prerequisites: 
+					<ul>
+						<li><a href="#" onclick="navigateToNode('#CS441');">CS441 - Discrete Structures for Computer Science</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS445');">CS445 - Data Structures</a></li>
+					</ul>
+				</div>
+				<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a href="#" class="modalButtons"
+		data-toggle="modal"
+		data-target="#cs1502Modal"
+		id="CS1502">
+	</a>
+
+	<div class="modal fade" id="cs1502Modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>CS1502 - Formal Methods in Computer Science</h4>
+				</div>
+				<div class="modal-body">
+					Description:<br/>	
+					The goals of the course are to develop student skills in modeling problems using discrete mathematics, to introduce students to new discrete structures, to further develop students' mathematical and algorithmic reasoning skills, and to introduce students to the theoretical study of information and computations as a physical phenomenon. Topics covered will include: discrete mathematics; algorithm analysis, including asymptotic notation, finding run times of iterative programs with nested loops, and using recurrence relations to find run times of recursive programs; and theory of computation, including finite state machines, regular languages, Kleene's Theorem, Church-Turing Thesis, and non-computability of the Halting Problem.
+					<hr/>
+					<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1502" target="_blank">More Information</a>
+					<br/>            
+					Prerequisites: 
+					<ul>
+						<li><a href="#" onclick="navigateToNode('#CS441');">CS441 - Discrete Structures for Computer Science</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS445');">CS445 - Data Structures</a></li>
+					</ul>
+				</div>
+				<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a href="#" class="modalButtons"
+		data-toggle="modal"
+		data-target="#cs1510Modal"
+		id="CS1510">
+	</a>
+
+	<div class="modal fade" id="cs1510Modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>CS1510 - Design and Analysis of Algorithms</h4>
+				</div>
+				<div class="modal-body">
+					Description:<br/>	
+					This course will cover methods and strategies that are useful for the design of nonnumeric algorithms. Students are expected to design their own algorithms.
+					<hr/>
+					<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1510" target="_blank">More Information</a>
+					<br/>            
+					Prerequisites: 
+					<ul>
+						<li><a href="#" onclick="navigateToNode('#CS1501');">CS1501 - Algorthm Implementation</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS1502');">CS1502 - Formal Methods in Computer Science</a></li>
+					</ul>
+				</div>
+				<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a href="#" class="modalButtons"
+		data-toggle="modal"
+		data-target="#cs1511Modal"
+		id="CS1511">
+	</a>
+
+	<div class="modal fade" id="cs1511Modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>CS1511 - Introduction to Theory of Computation</h4>
+				</div>
+				<div class="modal-body">
+					Description:<br/>	
+					Understanding the theory of computation provides deeper insights into various topics in computer science. This is an introductory level theory course. The aim of this course is to study the power (or lack of it) of various models of computation. Topics to be covered include: computability theory, automata theory, and languages.
+					<hr/>
+					<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1511" target="_blank">More Information</a>
+					<br/>            
+					Prerequisites: 
+					<ul>
+						<li><a href="#" onclick="navigateToNode('#CS1502');">CS1502 - Formal Methods in Computer Science</a></li>
+					</ul>
+				</div>
+				<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a href="#" class="modalButtons"
+		data-toggle="modal"
+		data-target="#cs1515Modal"
+		id="CS1515">
+	</a>
+
+	<div class="modal fade" id="cs1515Modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>CS1515 - Scientific Computation</h4>
+				</div>
+				<div class="modal-body">
+					Description:<br/>	
+					Numerical methods used in scientific computation will be discussed, with particular reference to their data structuring and verification aspects. The methods will be selected from the following: solution of systems of linear equations, solution of non-linear equations, approximation, and solution of ordinary differential equations.
+					<hr/>
+					<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1515" target="_blank">More Information</a>
+					<br/>            
+					Prerequisites: 
+					<ul>
+						<li><a href="#" onclick="navigateToNode('#CS445');">CS445 - Data Structures</a></li>
+						<li>Math 0230</li>
+						<li>Math 0280 or Math 1180</li>
+					</ul>
+				</div>
+				<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a href="#" class="modalButtons"
+		data-toggle="modal"
+		data-target="#cs1520Modal"
+		id="CS1520">
+	</a>
+
+	<div class="modal fade" id="cs1520Modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>CS1520 - Programming Languages for Web Applications</h4>
+				</div>
+				<div class="modal-body">
+					Description:<br/>	
+					Various programming paradigms will be studied using Java and scripting languages. The use of Java in programming web based applications, network applications, and the use of the extensive Java libraries will be studied. The programming paradigm of building software by gluing components will be explored through the use of scripting languages such as Perl and JavaScript. Applications include developing GUIs and internet programming.
+					<hr/>
+					<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1520" target="_blank">More Information</a>
+					<br/>            
+					Prerequisites: 
+					<ul>
+						<li><a href="#" onclick="navigateToNode('#CS445');">CS445 - Data Structures</a></li>
+					</ul>
+				</div>
+				<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a href="#" class="modalButtons"
+		data-toggle="modal"
+		data-target="#cs1530Modal"
+		id="CS1530">
+	</a>
+
+	<div class="modal fade" id="cs1530Modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>CS1530 - Software Engineering</h4>
+				</div>
+				<div class="modal-body">
+					Description:<br/>	
+					The purpose of this course is to provide a general survey of software engineering. Some of the topics covered include: project planning and management, design techniques, verification and validation, and software maintenance. Particular emphasis is on a group project in which a group of 4-5 students implement a system from its specification.
+					<hr/>
+					<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1530" target="_blank">More Information</a>
+					<br/>            
+					Prerequisites: 
+					<ul>
+						<li><a href="#" onclick="navigateToNode('#CS445');">CS445 - Data Structures</a></li>
+					</ul>
+				</div>
+				<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a href="#" class="modalButtons"
+		data-toggle="modal"
+		data-target="#cs1538Modal"
+		id="CS1538">
+	</a>
+
+	<div class="modal fade" id="cs1538Modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>CS1538 - Introduction to Simulation</h4>
+				</div>
+				<div class="modal-body">
+					Description:<br/>	
+					This course introduces students to the concepts, definitions, and techniques applicable to the modeling and simulation of systems. Primary emphasis is on discrete systems, although continuous systems are also discussed. A major objective of the course is to familiarize the student with several important discrete simulation programming languages and to illustrate their uses in the modeling and simulation of various kinds of systems. Programming is carried out using CSIM. Topics include: systems characterization, classification, and model types; advantages and disadvantages of simulation studies; pertinence of probability and statistics to the representation of stochastic processes and non-deterministic behaviors in system models; different viewpoints and orientations in conducting system simulations; modeling tools and techniques used in selected simulation programming environments; validation and verification.
+					<hr/>
+					<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1538" target="_blank">More Information</a>
+					<br/>            
+					Prerequisites: 
+					<ul>					
+						<li><a href="#" onclick="navigateToNode('#CS447');">CS447 - Computer Organization and Assembly Language</a></li>
+						<li>One statistics course</li>
+					</ul>
+				</div>
+				<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a href="#" class="modalButtons"
+		data-toggle="modal"
+		data-target="#cs1541Modal"
+		id="CS1541">
+	</a>
+
+	<div class="modal fade" id="cs1541Modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>CS1541 - Introduction to Computer Architecture</h4>
+				</div>
+				<div class="modal-body">
+					Description:<br/>	
+					Examination of computer architecture and hardware system organization. Topics include: CPU organization, sequential and microprogrammed control, instruction set implementation, memory organizations, input/output structure, peripherals and interfacing, and computer communications.
+					<hr/>
+					<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1541" target="_blank">More Information</a>
+					<br/>            
+					Prerequisites: 
+					<ul>
+						<li><a href="#" onclick="navigateToNode('#CS449');">CS449 - Introduction to Systems Software</a></li>
+					</ul>
+				</div>
+				<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a href="#" class="modalButtons"
+		data-toggle="modal"
+		data-target="#cs1550Modal"
+		id="CS1550">
+	</a>
+
+	<div class="modal fade" id="cs1550Modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>CS1550 - Introduction to Operating Systems</h4>
+				</div>
+				<div class="modal-body">
+					Description:<br/>	
+					The purpose of this course is to understand and use the basic concepts of operating systems, common to most computer systems, which interfaces the machine with the programmer. In particular, this class is meant to introduce processes such as the processing unit, process management, concurrency, communication, memory management and protection, and file systems.
+					<hr/>
+					<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1550" target="_blank">More Information</a>
+					<br/>            
+					Prerequisites: 
+					<ul>
+						<li><a href="#" onclick="navigateToNode('#CS447');">CS447 - Computer Organization and Assembly Language</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS449');">CS449 - Introduction to Systems Software</a></li>
+					</ul>
+				</div>
+				<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a href="#" class="modalButtons"
+		data-toggle="modal"
+		data-target="#cs1555Modal"
+		id="CS1555">
+	</a>
+
+	<div class="modal fade" id="cs1555Modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>CS1555 - Database Management Systems</h4>
+				</div>
+				<div class="modal-body">
+					Description:<br/>	
+					The objective of this course is to provide an in-depth knowledge of database systems design. Thus, the emphasis is on how to model ones own data and how to use available Database Management Systems effectively. Towards this end, the relational and the object-relational models are discussed in great detail and object-oriented and other data models are also presented. Commercial database management systems are examined and students get practical experience through the use of such systems.
+					<hr/>
+					<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1555" target="_blank">More Information</a>
+					<br/>            
+					Prerequisites: 
+					<ul>				
+						<li><a href="#" onclick="navigateToNode('#CS441');">CS441 - Discrete Structures for Computer Science</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS445');">CS445 - Data Structures</a></li>
+					</ul>
+				</div>
+				<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a href="#" class="modalButtons"
+		data-toggle="modal"
+		data-target="#cs1566Modal"
+		id="CS1566">
+	</a>
+
+	<div class="modal fade" id="cs1566Modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>CS1566 - Introduction to Computer Graphics</h4>
+				</div>
+				<div class="modal-body">
+					Description:<br/>	
+					This course offers an in-depth exploration of fundamental concepts in 2D and 3D computer graphics. The bulk of the course is devoted to 3D modeling, geometric transformations, and 3D viewing and rendering.
+					<hr/>
+					<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1566" target="_blank">More Information</a>
+					<br/>            
+					Prerequisites: 
+					<ul>				
+						<li><a href="#" onclick="navigateToNode('#CS447');">CS447 - Computer Organization and Assembly Language (or instructor's written permission)</a></li>
+					</ul>
+				</div>
+				<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a href="#" class="modalButtons"
+		data-toggle="modal"
+		data-target="#cs1567Modal"
+		id="CS1567">
+	</a>
+
+	<div class="modal fade" id="cs1567Modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>CS1567 - Programming and System Design on a Mobile Robot Platform</h4>
+				</div>
+				<div class="modal-body">
+					Description:<br/>	
+					Students will be introduced to a variety of programming techniques and paradigms, for implementing medium- to large-scale software systems. System integration is done on a mobile robot platform rather than a traditional desktop system. However, this is not a course in robotics. It is a course about building systems in a real-world environment.
+					<hr/>
+					<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1567" target="_blank">More Information</a>
+					<br/>            
+					Prerequisites: 
+					<ul>				
+						<li><a href="#" onclick="navigateToNode('#CS441');">CS441 - Discrete Structures for Computer Science</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS445');">CS445 - Data Structures</a></li>
+						<li>This is an honors course and requires a minimum CUM GPA of 3.25 or special permission from the instructor.</li>
+					</ul>			
+				</div>
+				<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a href="#" class="modalButtons"
+		data-toggle="modal"
+		data-target="#cs1571Modal"
+		id="CS1571">
+	</a>
+
+	<div class="modal fade" id="cs1571Modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>CS1571 - Introduction to Artificial Intelligence</h4>
+				</div>
+				<div class="modal-body">
+					Description:<br/>	
+					This course will provide an introduction to the fundamental concepts and techniques underlying the construction of intelligent computer systems. Topics typically covered in the course include: problem solving and search, logic and knowledge representation, planning, reasoning and decision- making in the presence of uncertainty, and machine learning.
+					<hr/>
+					<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1571" target="_blank">More Information</a>
+					<br/>            
+					Prerequisites: 
+					<ul>				
+						<li><a href="#" onclick="navigateToNode('#CS1501');">CS1501 - Algorthm Implementation</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS1502');">CS1502 - Formal Methods in Computer Science</a></li>		
+					</ul>
+				</div>
+				<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a href="#" class="modalButtons"
+		data-toggle="modal"
+		data-target="#cs1573Modal"
+		id="CS1573">
+	</a>
+
+	<div class="modal fade" id="cs1573Modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>CS1573 - Artificial Intelligence Application Development</h4>
+				</div>
+				<div class="modal-body">
+					Description:<br/>	
+					This course is about using concepts of artificial intelligence to solve current, real-world problems. In particular, we will focus on the area of machine learning, which has brought advances to many fields of studies such as bioinformatics, computational linguistics, and economics. This course will give an overview of the models and algorithms used in modern machine learning, including (but not limited to) generalized linear models, multi-layer neural networks, and clustering.
+					<hr/>
+					<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1573" target="_blank">More Information</a>
+					<br/>            
+					Prerequisites: 
+					<ul>				
+						<li><a href="#" onclick="navigateToNode('#CS1501');">CS1501 - Algorthm Implementation</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS1502');">CS1502 - Formal Methods in Computer Science</a></li>
+					</ul>
+				</div>
+				<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a href="#" class="modalButtons"
+		data-toggle="modal"
+		data-target="#cs1621Modal"
+		id="CS1621">
+	</a>
+
+	<div class="modal fade" id="cs1621Modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>CS1621 - Structure Programming Languages</h4>
+				</div>
+				<div class="modal-body">
+					Description:<br/>	
+					An analytical examination of modern high-level programming language structures, including design specification and implementation. Advanced forms of data types, expressions, and control primitives. Relationship of storage management techniques and language design.
+					<hr/>
+					<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1621" target="_blank">More Information</a>
+					<br/>            
+					Prerequisites: 
+					<ul>				
+						<li><a href="#" onclick="navigateToNode('#CS441');">CS441 - Discrete Structures for Computer Science</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS445');">CS445 - Data Structures</a></li>
+					</ul>
+				</div>
+				<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a href="#" class="modalButtons"
+		data-toggle="modal"
+		data-target="#cs1622Modal"
+		id="CS1622">
+	</a>
+
+	<div class="modal fade" id="cs1622Modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>CS1622 - Introduction to Compiler Design</h4>
+				</div>
+				<div class="modal-body">
+					Description:<br/>	
+					This course intoduces the basic concepts of compiler design and implementation. Topics include: lexical analysis, various types of parsers, intermediate and object code generation and code optimization. Material will be presented from an implementation point of view rather than from a formal approach. The impact of language design on compilers will also be examined.
+					<hr/>
+					<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1622" target="_blank">More Information</a>
+					<br/>            
+					Prerequisites: 
+					<ul>				
+						<li><a href="#" onclick="navigateToNode('#CS441');">CS441 - Discrete Structures for Computer Science</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS447');">CS447 - Computer Organization and Assembly Language</a></li>
+					</ul>
+				</div>
+				<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a href="#" class="modalButtons"
+		data-toggle="modal"
+		data-target="#cs1630Modal"
+		id="CS1630">
+	</a>
+
+	<div class="modal fade" id="cs1630Modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>CS1630 - Software-System Design Management</h4>
+				</div>
+				<div class="modal-body">
+					Description:<br/>	
+					Software-System Design and Management is a software engineering course with particular emphasis on project management, usability testing, customer interviewing, specification of formal requirements, and oral communication. In addition to the focus on a team programming project, we discuss, debate, and think about the team software design and development process. The students learn how to effectively communicate orally - from pitching ideas to a project manager, to interviewing a customer, resolving conflict with another team member, giving feedback and presenting results.
+					<hr/>
+					<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1630" target="_blank">More Information</a>
+					<br/>            
+					Prerequisites: 
+					<ul>				
+						<li><a href="#" onclick="navigateToNode('#CS1501');">CS1501 - Algorthm Implementation</a></li>					
+					</ul>
+					And either:
+					<ul>
+						<li><a href="#" onclick="navigateToNode('#CS1520');">CS1520 - Programming Languages for Web Applications</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS1530');">CS1530 - Software Engineering</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS1550');">CS1550 - Introduction to Operating Systems</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS1566');">CS1566 - Introduction to Computer Graphics</a></li>
+						<li>or instructor's permission.</li>
+					</ul>
+				</div>
+				<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a href="#" class="modalButtons"
+		data-toggle="modal"
+		data-target="#cs1631Modal"
+		id="CS1631">
+	</a>
+
+	<div class="modal fade" id="cs1631Modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>CS1631 - Software Design Methodology</h4>
+				</div>
+				<div class="modal-body">
+					Description:<br/>	
+					Construction of large computerized systems proceeds through the stages of requirements analysis and specification, in particular, methodologies for improving the reliability of specifications (executable specifications and system prototypes). Emphasis is on a group project in which 4-5 students specify an information control system.
+					<hr/>
+					<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1631" target="_blank">More Information</a>
+					<br/>            
+					Prerequisites: 
+					<ul>				
+						<li><a href="#" onclick="navigateToNode('#CS441');">CS441 - Discrete Structures for Computer Science</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS445');">CS445 - Data Structures</a></li>					
+					</ul>
+				</div>
+				<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a href="#" class="modalButtons"
+		data-toggle="modal"
+		data-target="#cs1632Modal"
+		id="CS1632">
+	</a>
+
+	<div class="modal fade" id="cs1632Modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>CS1632 - Software Quality Assurance</h4>
+				</div>
+				<div class="modal-body">
+					Description:<br/>	
+					This course provides students with a broad understanding of modern software testing and quality assurance. Although it will cover testing theory, the emphasis is on providing practical skills in software testing currently used in industry. To that end, it will cover: manual and automated tests, test- driven and behavior-driven development, performance testing, and understanding and developing a testing process. The course is project-oriented, with students working in groups on specific deliverables on various software products, as would be expected in an industry setting.
+					<hr/>
+					<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1632" target="_blank">More Information</a>
+					<br/>            
+					Prerequisites: 
+					<ul>				
+						<li><a href="#" onclick="navigateToNode('#CS445');">CS445 - Data Structures</a></li>
+					</ul>
+				</div>
+				<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a href="#" class="modalButtons"
+		data-toggle="modal"
+		data-target="#cs1635Modal"
+		id="CS1635">
+	</a>
+
+	<div class="modal fade" id="cs1635Modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>CS1635 - Interface Design Methodology</h4>
+				</div>
+				<div class="modal-body">
+					Description:<br/>	
+					In this course, you will learn essential skills on designing, prototyping and evaluating mobile applications. Key topics of this course include - state-of-the-art mobile interfaces and interaction technologies, How to design and implement effective applications for the small screen, with limited I/O modalities for people with limited time and attentions etc.
+					<hr/>
+					<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=0445" target="_blank">More Information</a>
+					<br/>            
+					Prerequisites: 
+					<ul>				
+						<li><a href="#" onclick="navigateToNode('#CS445');">CS445 - Data Structures</a></li>
+					</ul>
+				</div>
+				<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a href="#" class="modalButtons"
+		data-toggle="modal"
+		data-target="#cs1645Modal"
+		id="CS1645">
+	</a>
+
+	<div class="modal fade" id="cs1645Modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>CS1645 - Introduction to High Performance Computing Systems</h4>
+				</div>
+				<div class="modal-body">
+					Description:<br/>	
+					This course is an introduction to the architecture of and software techniques for parallel and high performance computing systems. The content includes fundamental architecture aspects of shared-memory and distributed-memory systems, as well as paradigms, algorithms and languages used to program parallel systems. Students will complete a number of projects demonstrating specific applications on parallel processing systems.
+					<hr/>
+					<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1645" target="_blank">More Information</a>
+					<br/>            
+					Prerequisites: 
+					<ul>				
+						<li><a href="#" onclick="navigateToNode('#CS447');">CS447 - Computer Organization and Assembly Language</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS449');">CS449 - Introduction to Systems Software</a></li>
+					</ul>
+				</div>
+				<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a href="#" class="modalButtons"
+		data-toggle="modal"
+		data-target="#cs1651Modal"
+		id="CS1651">
+	</a>
+
+	<div class="modal fade" id="cs1651Modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>CS1651 - Advanced Systems Software</h4>
+				</div>
+				<div class="modal-body">
+					Description:<br/>	
+					Operating systems are fundamental to all modern computers. These systems are characterized by a wide range of functionality and complexity. All variants, however, use a core set of ideas. The purpose of the course is to discuss issues of fundamental importance in the design of operating systems. The subjects discussed include processes, semaphores, monitors, interprocess communication, scheduling, memory management, paging, segmentation, file systems, security and protection mechanisms. The objective of the course is to provide a clear understanding of these key problems and bring awareness of the known solutions to these problems and to the limitations of these solutions.
+					<hr/>
+					<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1651" target="_blank">More Information</a>
+					<br/>            
+					Prerequisites: 
+					<ul>				
+						<li><a href="#" onclick="navigateToNode('#CS1550');">CS1550 - Introduction to Operating Systems</a></li>
+					</ul>
+				</div>
+				<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a href="#" class="modalButtons"
+		data-toggle="modal"
+		data-target="#cs1652Modal"
+		id="CS1652">
+	</a>
+
+	<div class="modal fade" id="cs1652Modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>CS1652 - Data Communication & Computer Networks</h4>
+				</div>
+				<div class="modal-body">
+					Description:<br/>	
+					The course emphasizes basic principles and topics of computer communications. The first part of the course provides an overview of interfaces that interconnect hardware and software components, describes the procedures and rules involved in the communication process and most importantly the software which controls computers communication. The second part of the course discusses network architectures and design principles, and describes the basic protocol suites. The third part of the course introduces the concept of internetworking, a powerful abstraction that deals with the complexity of multiple underlying communication technologies.
+					<hr/>
+					<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1652" target="_blank">More Information</a>
+					<br/>            
+					Prerequisites: 
+					<ul>				
+						<li><a href="#" onclick="navigateToNode('#CS449');">CS449 - Introduction to Systems Software</a></li>
+					</ul>
+				</div>
+				<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a href="#" class="modalButtons"
+		data-toggle="modal"
+		data-target="#cs1653Modal"
+		id="CS1653">
+	</a>
+
+	<div class="modal fade" id="cs1653Modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>CS1653 - Applied Cryptography and Network Security</h4>
+				</div>
+				<div class="modal-body">
+					Description:<br/>	
+					The goal of this course is to provide students the necessary conceptual background and hands-on experience to understand the most common cryptographic algorithms and protocols and how to use them to secure distributed applications and computer networks.
+					<hr/>
+					<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1653" target="_blank">More Information</a>
+					<br/>            
+					Prerequisites: 
+					<ul>				
+						<li><a href="#" onclick="navigateToNode('#CS449');">CS449 - Introduction to Systems Software (or permission of instructor.)</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS1501');">CS1501 - Algorthm Implementation (or permission of instructor.)</a></li>
+					</ul>
+				</div>
+				<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a href="#" class="modalButtons"
+		data-toggle="modal"
+		data-target="#cs1655Modal"
+		id="CS1655">
+	</a>
+
+	<div class="modal fade" id="cs1655Modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>CS1655 - Secure Data Management & Web Applications</h4>
+				</div>
+				<div class="modal-body">
+					Description:<br/>	
+					The main objectives for this course are: (1) To study in more depth query optimization and security, (2) To study advanced topics: data mining, information retrieval, and web data management, and (3) to expose students to advanced data and information management technologies, while gaining hands-on experience. These include mobile data management, continuous queries and their applications in areas such as biomedical informatics and E-Commerce.
+					<hr/>
+					<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1655" target="_blank">More Information</a>
+					<br/>            
+					Prerequisites: 
+					<ul>				
+						<li><a href="#" onclick="navigateToNode('#CS441');">CS441 - Discrete Structures for Computer Science</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS445');">CS445 - Data Structures</a></li>					
+					</ul>
+				</div>
+				<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a href="#" class="modalButtons"
+		data-toggle="modal"
+		data-target="#cs1666Modal"
+		id="CS1666">
+	</a>
+
+	<div class="modal fade" id="cs1666Modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+					<div class="modal-header">
+					<h4>CS1666 - Principles of Computer Game Design & Implementation</h4>
+				</div>
+				<div class="modal-body">
+					Description:<br/>	
+					This course provides an introduction to the fundamental technologies behind computer games as well as hands-on experience in the design and development of a computer game. Each student will create their own level that will become part of a common computer game environment for the course. This course will provide a rigorous introduction to the technologies used in the design and development of computer games such as advanced 3D graphics, quaternions, 3D physics engines, character animation, level design, terrain modeling, and AI path finding. Students will learn how to use the key state-of-the-art software tools for creating computer games.
+					<hr/>
+					<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1666" target="_blank">More Information</a>
+					<br/>            
+					Prerequisites: 
+					<ul>				
+						<li><a href="#" onclick="navigateToNode('#CS1566');">CS1566 - Introduction to Computer Graphics</a></li>
+					</ul>
+				</div>
+				<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a href="#" class="modalButtons"
+		data-toggle="modal"
+		data-target="#cs1671Modal"
+		id="CS1671">
+	</a>
+
+	<div class="modal fade" id="cs1671Modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>CS1671 - Human Language Technologies</h4>
+				</div>
+				<div class="modal-body">
+					Description:<br/>	
+					This course provides an introduction to the field of natural language processing (NLP) - The creation of computer programs that can understand, generate, and learn languages used by humans. It will expose students to real-world applications such as speech recognition, information retrieval, dialogue agents, question answering systems, and machine translations by means of computational techniques including search algorithms, dynamic programming, hidden markov models, probalistic context free grammars, and related machine learning algorithms.
+					<hr/>
+					<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1671" target="_blank">More Information</a>
+					<br/>            
+					Prerequisites: 
+					<ul>			
+						<li><a href="#" onclick="navigateToNode('#CS1501');">CS1501 - Algorthm Implementation</a></li>
+						<li><a href="#" onclick="navigateToNode('#CS1502');">CS1502 - Formal Methods in Computer Science</a></li>	
+					</ul>
+				</div>
+				<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a href="#" class="modalButtons"
+		data-toggle="modal"
+		data-target="#cs1675Modal"
+		id="CS1675">
+	</a>
+
+	<div class="modal fade" id="cs1675Modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>CS1675 - Introduction to Machine Learning</h4>
+				</div>
+				<div class="modal-body">
+					Description:<br/>	
+					This introductory machine learning course will give an overview of many models and algorithms used in modern machine learning including linear models, multi-layer neural networks, support vector machines, density estimation methods, Bayesian belief networks, clustering, ensemble methods, and reinforcement of learning. The course will give the student the basic ideas and intuition behind these methods as well as a more formal understanding of how and why they work. Through homework assignments students will have an opportunity to experiment with many machine learning techniques and apply them to various real-world datasets.
+					<hr/>
+					<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1675" target="_blank">More Information</a>
+					<br/>            
+					Prerequisites: 
+					<ul>				
+						<li><a href="#" onclick="navigateToNode('#CS1501');">CS1501 - Algorthm Implementation</a></li>
+						<li>Stats 1000, Stats 1100, or Stats 1151</li>
+					</ul>
+				</div>
+				<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a href="#" class="modalButtons"
+		data-toggle="modal"
+		data-target="#cs1699Modal"
+		id="CS1699">
+	</a>
+
+	<div class="modal fade" id="cs1699Modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>CS1699 - Spec Topics in Computer Science</h4>
+				</div>
+				<div class="modal-body">
+					Description:<br/>	
+					The special topics courses can be different each semester. Check the link below for information.
+					<hr/>
+					<a href="http://www.cs.pitt.edu/undergrad/courses/view.php?course=1699" target="_blank">More Information</a>
+					<br/>            
+					Prerequisites: 
+					<ul>				
+						<li>Prerequisites depend on what the course is for the semester, check the link above for more information.</li>
+					</ul>
+				</div>
+				<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+				</div>
+			</div>
+		</div>
+	</div>
 
 </body>
 </html>
